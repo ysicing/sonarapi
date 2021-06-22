@@ -9,8 +9,6 @@ import (
 	"net/url"
 	"sort"
 	"strings"
-
-	"k8s.io/klog/v2"
 )
 
 // Do sends an API request and returns the API response. The API response is
@@ -24,7 +22,6 @@ func Do(c *http.Client, req *http.Request, v interface{}) (*http.Response, error
 		req.Header.Set("Accept", "text/plain")
 		isText = true
 	}
-	klog.Infof("[%s] %s\n", req.Method, req.URL.String())
 	resp, err := c.Do(req)
 	if err != nil {
 		return nil, err
