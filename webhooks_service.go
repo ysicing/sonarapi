@@ -3,7 +3,6 @@ package sonarapi
 
 import (
 	"github.com/google/go-querystring/query"
-	"k8s.io/klog/v2"
 	"net/http"
 	"strings"
 )
@@ -62,7 +61,6 @@ func (s *WebhooksService) Create(opt *WebhooksCreateOption) (v *WebhooksCreateOb
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -85,7 +83,6 @@ func (s *WebhooksService) Delete(opt *WebhooksDeleteOption) (resp *http.Response
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -107,7 +104,6 @@ func (s *WebhooksService) List(opt *WebhooksListOption) (v *WebhooksListObject, 
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("GET", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -133,7 +129,6 @@ func (s *WebhooksService) Update(opt *WebhooksUpdateOption) (resp *http.Response
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)

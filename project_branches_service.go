@@ -2,7 +2,6 @@
 package sonarapi
 
 import (
-	"k8s.io/klog/v2"
 	"net/http"
 )
 
@@ -40,7 +39,6 @@ func (s *ProjectBranchesService) List(opt *ProjectBranchesListOption) (v *Projec
 	path := s.client.url + "/api/project_branches/list?project=" + opt.Project
 	req, err := http.NewRequest("GET", path, nil)
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)

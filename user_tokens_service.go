@@ -4,7 +4,6 @@ package sonarapi
 import (
 	"fmt"
 	"github.com/google/go-querystring/query"
-	"k8s.io/klog/v2"
 	"net/http"
 	"strings"
 )
@@ -26,8 +25,9 @@ type UserTokensSearchObject struct {
 }
 
 type UserToken struct {
-	CreatedAt string `json:"createdAt,omitempty"`
-	Name      string `json:"name,omitempty"`
+	CreatedAt          string `json:"createdAt,omitempty"`
+	Name               string `json:"name,omitempty"`
+	LastConnectionDate string `json:"lastConnectionDate,omitempty"`
 }
 
 type UserTokensGenerateOption struct {
@@ -41,7 +41,6 @@ func (s *UserTokensService) Generate(opt *UserTokensGenerateOption) (v *UserToke
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -65,7 +64,6 @@ func (s *UserTokensService) Revoke(opt *UserTokensRevokeOption) (resp *http.Resp
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -90,14 +88,12 @@ func (s *UserTokensService) Search(opt *UserTokensSearchOption) (v *UserTokensSe
 
 	req, err := http.NewRequest("GET", path, nil)
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
 	v = new(UserTokensSearchObject)
 	resp, err = s.client.Do(req, v)
 	if err != nil {
-		klog.Error(err)
 		return nil, resp, err
 	}
 	return

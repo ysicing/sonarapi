@@ -2,7 +2,6 @@
 package sonarapi
 
 import (
-	"k8s.io/klog/v2"
 	"net/http"
 )
 
@@ -51,7 +50,6 @@ func (s *MeasuresService) Search(opt *MeasuresSearchOption) (v *MeasuresSearchOb
 	//req, err := http.NewRequest("GET", path, strings.NewReader(optv.Encode()))
 	req, err := http.NewRequest("GET", path, nil)
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)

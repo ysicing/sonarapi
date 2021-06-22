@@ -3,7 +3,6 @@ package sonarapi
 
 import (
 	"github.com/google/go-querystring/query"
-	"k8s.io/klog/v2"
 	"net/http"
 	"strings"
 )
@@ -80,7 +79,6 @@ func (s *ProjectsService) Create(opt *ProjectsCreateOption) (v *ProjectsCreateOb
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -104,7 +102,6 @@ func (s *ProjectsService) Delete(opt *ProjectsDeleteOption) (resp *http.Response
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("POST", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)
@@ -134,7 +131,6 @@ func (s *ProjectsService) Search(opt *ProjectsSearchOption) (v *ProjectSearchObj
 	optv, _ := query.Values(opt)
 	req, err := http.NewRequest("GET", path, strings.NewReader(optv.Encode()))
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	s.client.requestExtHeader(req)

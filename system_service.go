@@ -2,7 +2,6 @@
 package sonarapi
 
 import (
-	"k8s.io/klog/v2"
 	"net/http"
 )
 
@@ -97,7 +96,6 @@ func (s *SystemService) Health() (v *SystemHealthObject, resp *http.Response, er
 	path := s.client.url + "/api/system/health"
 	req, err := http.NewRequest("GET", path, nil)
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	v = new(SystemHealthObject)
@@ -113,7 +111,6 @@ func (s *SystemService) Status() (v *SystemStatusObject, resp *http.Response, er
 	path := s.client.url + "/api/system/status"
 	req, err := http.NewRequest("GET", path, nil)
 	if err != nil {
-		klog.Error(err)
 		return
 	}
 	v = new(SystemStatusObject)
